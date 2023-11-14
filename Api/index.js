@@ -15,3 +15,13 @@ DatabseConnection(
     console.log(`Server is running on http://localhost:${PORT}`);
   })
 );
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "somthing went wrong";
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
